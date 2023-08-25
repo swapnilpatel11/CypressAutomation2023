@@ -7,9 +7,10 @@ describe('My Sixth Test Suite', () => {
       
     cy.get('div.mouse-hover-content').invoke('show')
 
-    //!force click invisible elements
+    //!force click invisible elements -- for Hover
     //cy.contains('Top').click({force:true})
     cy.contains('Top').click()
     cy.url().should('include','top')
+  
 })
 })
