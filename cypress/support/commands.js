@@ -11,17 +11,27 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
-//! new command to select productName for select product
+//! new command to select productName for select produc
 Cypress.Commands.add('selectProduct', (productName) => {
-    cy.get('h4[class="card-title"]').each(($el,index,$list)=>
+    cy.get('h4.card-title').each(($el,index,$list)=>
     {
       if($el.text().includes('productName'))
       {
-          cy.get('button.btn.btn-info').eq(index).click()
+          cy.get('div button.btn').eq(index).click()
       }
     })
  })
 
+ //! This custom command is from Udemy Comment Section --This is working solution
+ Cypress.Commands.add("AddToCart", (productName) => {
+ 
+  cy.contains('div.card', new RegExp(productName, 'i'))
+    .each($card => {
+      cy.wrap($card)
+        .find('button').contains('Add')
+        .click()
+    })
+  })
 
 //
 // -- This is a child command --

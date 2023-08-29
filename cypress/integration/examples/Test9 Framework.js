@@ -28,7 +28,10 @@ describe('Framework Test', ()=>{
 
 
     //! we can build this function as custom cypress command in support -> commands.js 
-      cy.selectProduct(globalThis.data.productName)
+     // cy.selectProduct('Blackberry')
+     // cy.selectProduct('Nokia Edge')
+     cy.AddToCart('Blackberry')
+     cy.AddToCart('Nokia Edge')
 
 
     })
