@@ -11,7 +11,7 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
-//! new command to select productName for select produc
+//! new command to select productName for select product
 Cypress.Commands.add('selectProduct', (productName) => {
     cy.get('h4.card-title').each(($el,index,$list)=>
     {

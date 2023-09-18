@@ -1,5 +1,14 @@
 ///<reference types='Cypress'/>
 
+import HomePage from "../pageObjects/HomePage"
+
+import ProductPage from "../pageObjects/ProductPage"
+
+import CheckoutPage from "../pageObjects/CheckoutPage"
+
+import PurchasePage from "../pageObjects/PurchasePage"
+
+
 describe('Framework Test', ()=>{
 
     //! all precondition setup should be done in before hook
@@ -12,27 +21,81 @@ describe('Framework Test', ()=>{
     })
 
     it('Framwork Example',()=> {
-      cy.visit('https://rahulshettyacademy.com/angularpractice/')
 
-      cy.get('input[name="name"]:nth-child(2)').type(globalThis.data.name)
+        const homePage = new HomePage()
 
-      cy.get('#exampleFormControlSelect1').select(globalThis.data.gender)
+        const productPage = new ProductPage()
 
-      cy.get('input[name="name"]:nth-child(1)').should('have.value',globalThis.data.name)
+        const checkoutPage = new CheckoutPage()
 
-      cy.get('input[name="name"]:nth-child(2)').should('have.attr','minlength','2')
+        const purchasePage = new PurchasePage()
+       
+      cy.visit( Cypress.env('url')+"/angularpractice/")
 
-      cy.get('#inlineRadio3').should('be.disabled')
+      homePage.getEditBox().type(globalThis.data.name)
 
-      cy.get(':nth-child(2) > .nav-link').click()
+      homePage.getGender().select(globalThis.data.gender)
+
+      homePage.getTwoWayDataBinding().should('have.value',globalThis.data.name)
+
+      homePage.getEditBox().should('have.attr','minlength','2')
+
+      homePage.getEnterpreneaur().should('be.disabled')
+
+      homePage.getShopTab().click()
 
 
     //! we can build this function as custom cypress command in support -> commands.js 
      // cy.selectProduct('Blackberry')
      // cy.selectProduct('Nokia Edge')
-     cy.AddToCart('Blackberry')
-     cy.AddToCart('Nokia Edge')
+    //  cy.AddToCart('Blackberry')
+    //  cy.AddToCart('Nokia Edge')
 
+     //! Adding multiple product with array from json
+
+     globalThis.data.productName.forEach(function(element) {
+        cy.AddToCart(element)
+     });
+
+     productPage.checkOutButton().click()
+
+     var sum = 0
+     checkoutPage.poductPrice().each(($el,index,$list)=>{
+        const amount = $el.text()
+       var result = amount.split(" ") //Split string with white spaces to get ineger of price 
+       result = result[1].trim()   //remove spaces before or after
+       sum = Number(sum) + Number(result)
+     }).then(function(){  //resolving with Then() js sum
+        cy.log(sum)
+     })
+
+     checkoutPage.totalPrice().then(function(element){
+        const amount = element.text()
+        var result = amount.split(" ")
+        var total = result[1].trim()
+        expect(Number(total)).to.equal(sum)
+     })
+
+     checkoutPage.CheckoutButton().click()
+
+     purchasePage.chooseCountryEditbox().type('India')
+
+     Cypress.config('defaultCommandTimeout',8000)
+
+     purchasePage.autoSuggestIndia().click()
+
+     purchasePage.termsConditionCheckbox().click({force:true})
+
+     purchasePage.purchaseButton().click()
+
+     //!Assert text has some spaces so using include method with then() function  
+     //purchasePage.successMessage().should('have.text','Success! Thank you! Your order will be delivered in next few weeks :-).')
+     //.should('be.true')expect(true).to.be.true using chai assertion
+     purchasePage.successMessage().then(function(element){
+        const actualText = element.text()
+       expect(actualText.includes("Success")).to.be.true  // Chai Assertion cypress
+     })
+        
 
     })
 } )
