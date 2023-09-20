@@ -6,15 +6,15 @@
   "scripts": {
     "test": "node_modules\\.bin\\cypress run",
     "testOpen": "node_modules\\.bin\\cypress open",
-    "headTest":"npm run test -- --headed",
-    "chromeTest":"npm run test -- --browser chrome",
-    "recordDashboardTest":"npm run test -- --record --key 3e2b0650-8737-40bf-9ac9-b014bf81185a",
-    "GreenKartTest":"npm run test -- --spec \"cypress/integration/mytests/*\""
+    "headTest": "npm run test -- --headed",
+    "chromeTest": "npm run test -- --browser chrome",
+    "recordDashboardTest": "npm run test -- --record --key 3e2b0650-8737-40bf-9ac9-b014bf81185a",
+    "GreenKartTest": "npm run test -- --spec \"cypress/integration/mytests/*\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^12.17.4",
+    "cypress": "^13.2.0",
     "cypress-iframe": "^1.0.1"
   }
 }
