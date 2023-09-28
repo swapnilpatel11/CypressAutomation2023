@@ -9,18 +9,30 @@
     "headTest": "npm run test -- --headed",
     "chromeTest": "npm run test -- --browser chrome",
     "recordDashboardTest": "npm run test -- --record --key 3e2b0650-8737-40bf-9ac9-b014bf81185a",
-    "GreenKartTest": "npm run test -- --spec \"cypress/integration/mytests/*\""
+    "GreenKartTest": "npm run test -- --spec \"cypress/integration/mytests/*\"",
+    "BDDTest": "npm run test -- --spec cypress\\integration\\examples\\BDD\\*.feature --headed --browser chrome"
   },
-  "author": "",
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": false,
+    "stepDefinitions": "\"cypress/integration\"",
+    "json": {
+      "enabled": true,
+      "output": "\"cypress/cucumberReports/results.json\""
+    }
+  },
+  "author": "Swapnil Patel",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^13.2.0",
-    "cypress-iframe": "^1.0.1"
+    "cypress-cucumber-preprocessor": "^4.1.0",
+    "cypress-iframe": "^1.0.1",
+    "mocha": "^10.1.0",
+    "multiple-cucumber-html-reporter": "^3.0.1"
   },
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^18.0.6",
+    "@cypress/browserify-preprocessor": "latest",
+    "cypress": "^13.2.0",
     "eslint": "^8.50.0",
-    "prettier": "^3.0.3",
-    "@cypress/browserify-preprocessor": "latest"
+    "prettier": "^3.0.3"
   }
 }
