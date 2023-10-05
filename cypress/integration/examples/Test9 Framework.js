@@ -1,12 +1,12 @@
 ///<reference types='Cypress'/>
 
-import HomePage from "../pageObjects/HomePage"
+import HomePage from "../../support/pageObjects/HomePage"
 
-import ProductPage from "../pageObjects/ProductPage"
+import ProductPage from "../../support/pageObjects/ProductPage"
 
-import CheckoutPage from "../pageObjects/CheckoutPage"
+import CheckoutPage from "../../support/pageObjects/CheckoutPage"
 
-import PurchasePage from "../pageObjects/PurchasePage"
+import PurchasePage from "../../support/pageObjects/PurchasePage"
 
 
 describe('Framework Test', ()=>{

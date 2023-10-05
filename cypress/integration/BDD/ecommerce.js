@@ -4,20 +4,14 @@ import {
   Then,
 } from "@badeball/cypress-cucumber-preprocessor/steps";
 
-import HomePage from "../pageObjects/HomePage";
+import HomePage from "../../support/pageObjects/HomePage"
 
-import ProductPage from "../pageObjects/ProductPage";
+import ProductPage from "../../support/pageObjects/ProductPage"
 
-import CheckoutPage from "../pageObjects/CheckoutPage";
+import CheckoutPage from "../../support/pageObjects/CheckoutPage"
 
-import PurchasePage from "../pageObjects/PurchasePage";
+import PurchasePage from "../../support/pageObjects/PurchasePage"
 
-before(() => {
-  //! setting up data retrieval from example.json fixture
-  cy.fixture("example").then(function (data) {
-    globalThis.data = data;
-  });
-});
 const homePage = new HomePage();
 
 const productPage = new ProductPage();
@@ -25,11 +19,11 @@ const productPage = new ProductPage();
 const checkoutPage = new CheckoutPage();
 
 const purchasePage = new PurchasePage();
-Given("I open Ecommerce page", () => {
+Given("I open Ecommerce page", function()  {
   cy.visit(Cypress.env("url") + "/angularpractice/");
 });
 
-When("I add items to cart", () => {
+When("I add items to cart", function() {
   homePage.getShopTab().click();
   globalThis.data.productName.forEach(function (element) {
     cy.AddToCart(element);
@@ -37,7 +31,7 @@ When("I add items to cart", () => {
   productPage.checkOutButton().click();
 });
 
-When("Validate the total prices", () => {
+When("Validate the total prices", function() {
   var sum = 0;
   checkoutPage
     .poductPrice()
@@ -62,7 +56,7 @@ When("Validate the total prices", () => {
   checkoutPage.CheckoutButton().click();
 });
 
-Then("select the country submit and verify Thankyou", () => {
+Then("select the country submit and verify Thankyou", function() {
   purchasePage.chooseCountryEditbox().type("India");
 
   Cypress.config("defaultCommandTimeout", 8000);
@@ -81,20 +75,5 @@ Then("select the country submit and verify Thankyou", () => {
     expect(actualText.includes("Success")).to.be.true; // Chai Assertion cypress
   });
 
-  When("I fill the form details", () => {
-    homePage.getEditBox().type(globalThis.data.name);
-
-    homePage.getGender().select(globalThis.data.gender);
-  });
-  Then("validate the form behaviour", () => {
-    homePage.getTwoWayDataBinding().should("have.value", globalThis.data.name);
-
-    homePage.getEditBox().should("have.attr", "minlength", "2");
-
-    homePage.getEnterpreneaur().should("be.disabled");
-  });
-
-  Then("select the shop page", () => {
-    homePage.getShopTab().click();
-  });
+  
 });
