@@ -1,16 +1,17 @@
+/// <reference types="Cypress" />
 import {
   Given,
   When,
   Then,
-} from "@badeball/cypress-cucumber-preprocessor/steps";
+} from "@badeball/cypress-cucumber-preprocessor";
 
-import HomePage from "../../support/pageObjects/HomePage"
+import HomePage from "../../../../support/pageObjects/HomePage"
 
-import ProductPage from "../../support/pageObjects/ProductPage"
+import ProductPage from "../../../../support/pageObjects/ProductPage"
 
-import CheckoutPage from "../../support/pageObjects/CheckoutPage"
+import CheckoutPage from "../../../../support/pageObjects/CheckoutPage"
 
-import PurchasePage from "../../support/pageObjects/PurchasePage"
+import PurchasePage from "../../../../support/pageObjects/PurchasePage"
 
 const homePage = new HomePage();
 
@@ -19,8 +20,10 @@ const productPage = new ProductPage();
 const checkoutPage = new CheckoutPage();
 
 const purchasePage = new PurchasePage();
-Given("I open Ecommerce page", function()  {
+
+Given("I open Ecommerce page", () => {
   cy.visit(Cypress.env("url") + "/angularpractice/");
+  return this;
 });
 
 When("I add items to cart", function() {
