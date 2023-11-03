@@ -14,7 +14,7 @@
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true,
-    "stepDefinitions": "cypress/integration/BDD/",
+   "stepDefinitions": "cypress/integration/BDD/ecommerce/",
     "json": {
       "enabled": true,
       "output": "cypress/cucumberReports/results.json"
